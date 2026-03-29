@@ -14,3 +14,6 @@ tftp -vvv localhost <tftp_port>
 > get <fname_on_srv>
 > put <fname_on_host>
 ```
+
+### Notes
+- `rsyslog` simply added 10MB to the container img
