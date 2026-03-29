@@ -2,7 +2,7 @@
 TODO
 ```bash
 # Podman commands
-podman build --tag tftp-test-srv:0.1.0 --file Containerfile
+podman build --target [dbg|rel] --tag tftp-test-srv:0.2.0 .
 podman images
 podman run --rm --network=host <img_name>
 podman ps
