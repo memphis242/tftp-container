@@ -24,10 +24,9 @@ RUN useradd --system --shell /sbin/nologin ${TFTP_USER}
 
 # Create the TFTP root directory and set ownership for TFTP root directory - owner
 # should match what we -u / --user later for tftpd
-#RUN mkdir -p ${TFTP_ROOT} && \
-#    chown -R ${TFTP_USER}:${TFTP_USER} ${TFTP_ROOT} && \
-#    chmod 0755 ${TFTP_ROOT}
-RUN mkdir -p ${TFTP_ROOT}
+RUN mkdir -p ${TFTP_ROOT} && \
+    chown -R ${TFTP_USER}:${TFTP_USER} ${TFTP_ROOT} && \
+    chmod 0755 ${TFTP_ROOT}
 
 # Copy test files
 COPY testfiles/ /tftp-root/
