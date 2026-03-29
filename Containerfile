@@ -1,4 +1,4 @@
-FROM docker.io/almalinux/9-base:9.7@sha256:49dba63e0f383abdcefb67fea2247a519036cd90143d433e53752b73a4496b86
+FROM docker.io/almalinux/9-minimal:9.7@sha256:6d23899d5dc580aa5cebcbf751928f502fa7452360afe396ec657de99f006669
 
 LABEL org.opencontainers.image.title = "tftp-test-srv" \
       org.opencontainers.image.version = "0.1.0" \
@@ -7,8 +7,8 @@ LABEL org.opencontainers.image.title = "tftp-test-srv" \
       org.opencontainers.image.created = "2026-03-28"
 
 # Install packages we want
-RUN dnf install -y tftp-server && \
-    dnf -y clean all
+RUN microdnf install -y tftp-server && \
+    microdnf -y clean all
 
 # Document TFTP setup
 ENV TFTP_ROOT=/tftp-root \
