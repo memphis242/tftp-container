@@ -51,23 +51,21 @@ RUN microdnf install -y \
 # if only for the convenience of it.
 RUN echo '*.* /dev/stdout' > /etc/rsyslog.d/console.conf
 
+# Copy rsyslog.conf file over that does not rely on journald...
+COPY cfgfiles/rsyslog.conf /etc/rsyslog-minimal.conf
+
+# The startup commands grew beyond a reasonable CMD statement, so an entrypoint
+# script shall be used instead.
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Drop privileges -- We can't do this the usual USER way because tftpd needs elevated
 #                    privileges for chroot(), setuid(), etc. So, the drop in
 #                    privileges will be accomplished via -u / --user option and
 #                    tftpd will setuid() to drop the privileges accordingly.
 #USER ${TFTP_USER}
 
-# Run TFTP server
-CMD sh -c "\
-    rsyslogd && \
-    in.tftpd --foreground \
-    --create \
-    -vvv \
-    --address :${TFTP_PORT} \
-    --port-range 51234:51234 \
-    --user ${TFTP_USER} \
-    --secure ${TFTP_ROOT} \
-"
+ENTRYPOINT ["/entrypoint.sh"]
 
 # rel image --------------------------------------------------------------------
 # An image without syslog.
