@@ -41,6 +41,7 @@ FROM base AS dbg
 # Install rsyslog to be our syslog daemon
 RUN microdnf install -y \
     rsyslog \
+    procps-ng \
 && microdnf -y clean all
 
 # Set up syslog messages to also go to podman logs in addition to /var/log/messages,
