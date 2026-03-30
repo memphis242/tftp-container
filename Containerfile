@@ -42,6 +42,9 @@ FROM base AS dbg
 RUN microdnf install -y \
     rsyslog \
     procps-ng \
+    iproute \
+    tcpdump \
+    strace \
 && microdnf -y clean all
 
 # Set up syslog messages to also go to podman logs in addition to /var/log/messages,
