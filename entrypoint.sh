@@ -9,8 +9,8 @@ while [ ! -S /dev/log ]; do
     sleep 0.05
 done
 
-# Start tftpd (replace shell)
-exec in.tftpd --foreground \
+# Start tftpd
+in.tftpd --foreground \
     --create \
     -vvv \
     --address :${TFTP_PORT} \

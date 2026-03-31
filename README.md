@@ -17,3 +17,4 @@ tftp -vvv localhost <tftp_port>
 
 ### Notes
 - `rsyslog` simply added 10MB to the container img
+- Without `exec` of `in.tftpd`, yes TFTP will not replace `sh`, and `sh` is the PID 1 process, but that also means `SIGTERM` does not cleanly stop the container. This is because TODO
