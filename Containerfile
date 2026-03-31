@@ -47,10 +47,6 @@ RUN microdnf install -y \
     strace \
 && microdnf -y clean all
 
-# Set up syslog messages to also go to podman logs in addition to /var/log/messages,
-# if only for the convenience of it.
-RUN echo '*.* /dev/stdout' > /etc/rsyslog.d/console.conf
-
 # Copy rsyslog.conf file over that does not rely on journald...
 COPY cfgfiles/rsyslog.conf /etc/rsyslog-minimal.conf
 
