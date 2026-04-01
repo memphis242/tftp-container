@@ -16,4 +16,16 @@ in.tftpd --foreground \
     --address :${TFTP_PORT} \
     --port-range 51234:51234 \
     --user ${TFTP_USER} \
-    --secure ${TFTP_ROOT}
+    --secure ${TFTP_ROOT} &
+
+# Set up SIGTERM to be forwarded to tftpd and rsyslogd from sh...
+# An init system would be best here, but the smaller init systems such as tini
+# and dumb-init were not available, and systemd would be overkill, so doing
+# this manual trapping for now...
+TFTPD_PID=$!
+
+# Forward signals
+trap 'kill -TERM $TFTPD_PID $RSYSLOG_PID' TERM INT
+
+# Wait for tftpd
+wait $TFTPD_PID
